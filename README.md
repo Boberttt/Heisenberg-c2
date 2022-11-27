@@ -2,7 +2,7 @@
 **Why is it called Heisenberg c2? Heisenberg made meth, and like using meth, using this C2 isn't a good choice.**
  
 ## Features
-|Feature|use|
+|Feature|Use|
 |----|-----|
 |whoami|Find current user|
 |reverse shell|Execute commands|
@@ -10,3 +10,4 @@
 |LOLBas methods|Bypass detection|
 |ls|List files|
 |cat|Read files|
+|exit|exit server or/and client|
