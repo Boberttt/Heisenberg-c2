@@ -11,3 +11,5 @@
 |ls|List files|
 |cat|Read files|
 |exit|exit server or/and client|
+
+### Current version: 0.4
