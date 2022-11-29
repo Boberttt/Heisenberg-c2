@@ -7,9 +7,11 @@
 |whoami|Find current user|
 |reverse shell|Execute commands|
 |tasklist|List tasks|
-|LOLBas methods|Bypass detection|
+|wget|Upload files|
+|rm|Delete files|
+|schtasks|maintain access|
 |ls|List files|
 |cat|Read files|
 |exit|exit server or/and client|
-
+#### Note: the server doesn't execute such commands, but the commands have similar/the same functions
 ### Current version: 0.4
