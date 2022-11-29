@@ -9,9 +9,9 @@
 |tasklist|List tasks|
 |wget|Upload files|
 |rm|Delete files|
-|schtasks|maintain access|
+|schtasks|Maintain access|
 |ls|List files|
 |cat|Read files|
-|exit|exit server or/and client|
-#### Note: the server doesn't execute such commands, but the commands have similar/the same functions
+|exit|Exit server or/and client|
+#### Note: the server doesn't execute such commands (besides schtasks), but the commands have similar/the same functions
 ### Current version: 0.4
