@@ -12,6 +12,7 @@
 |schtasks|Maintain access|
 |ls|List files|
 |cat|Read files|
+|pwd|Find current directory|
 |exit|Exit server or/and client|
 #### Note: the server doesn't execute such commands (besides schtasks), but the commands have similar/the same functions
-### Current version: 0.4
+### Current version: 0.4.1
