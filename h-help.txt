@@ -1,0 +1,8 @@
+Build:
+Open h.go, edit the IP and PORT on line 19. Next open h-server.go and edit the PORT to make it the same port as the h.go PORT.
+Install golang, if you haven't already, and run h-build.bat
+h.go will be packed with upx and it will be placed in your currenct directory with the name "h-packed.exe".
+
+Run server:
+Use "go run h-server.go" in order to run the server.
+

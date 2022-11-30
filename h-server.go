@@ -82,7 +82,7 @@ func main () {
 			}
 		}
 		if (option == "0") { // help
-			fmt.Print("Made by Coffee&Shells\nHow to make a client/payload: open the h.go file, change the IP to yours, if you change the port you'll also have to change the port on the server. Build the file, and you now have your payload.\nHow to fix most bugs: exit the server, the client will not exit, and re-open the server\n")
+			fmt.Print("Open h-help.txt for help :)")
 		}
 		if (option == "1") { // exit server 
 			return

