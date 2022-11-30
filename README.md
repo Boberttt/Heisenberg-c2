@@ -18,4 +18,4 @@
 ### About
 Just another C2. Packed by UPX.
 ### Future plans
-By V1.0, this C2 will have a builder, and a pre-compiled server. V2.0 will be focused on adding more advanced features, such as keylogging. V3.0 will be focused on active directory, network scanning, and exploitation/scanning of exploits like zerologon and printnightmare. V4.0 will be focused on avoiding edr detection. At most, I think I'll get to V2.0 if this project doesn't take off. Please help me by reviewing my code! 
+This project is no longer being updated, I'll be happy to add any requested features though. 
